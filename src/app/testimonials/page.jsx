@@ -1,5 +1,5 @@
 import Brands from "@/components/Brands";
-import Testimonial from "@/components/Testimonial";
+import Testimonial from "@/components/Testimonials";
 
 const Page = () => {
   return (
