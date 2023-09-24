@@ -1,4 +1,12 @@
-const Services = () => {
+async function getData() {
+  const res = await fetch(`${process.env.BASE_URL}/api/AllService`);
+  if (!res.ok) {
+    throw new Error("AllService List Calling Fail");
+  }
+  return res.json();
+}
+const Services = async () => {
+  const data = await getData();
   return (
     <div>
       <section>

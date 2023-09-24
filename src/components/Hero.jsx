@@ -1,5 +1,15 @@
 import Link from "next/link";
-const Hero = () => {
+
+async function getData() {
+  const res = await fetch(`${process.env.BASE_URL}/api/HeroList`);
+  if (!res.ok) {
+    throw new Error("HeroList List Calling Fail");
+  }
+  return res.json();
+}
+const Hero = async () => {
+  const data = await getData();
+
   return (
     <div>
       <section className="relative bg-gray-50">
@@ -10,14 +20,13 @@ const Hero = () => {
                 <div className="w-full text-center lg:text-left">
                   <div className="max-w-md mx-auto lg:mx-0">
                     <h2 className="mb-3 text-4xl lg:text-5xl font-bold font-heading">
-                      <span>Build &amp; Launch without</span>
+                      <span>{data.title}</span>
                       <span className="text-green-600">problems</span>
                     </h2>
                   </div>
                   <div className="max-w-sm mx-auto lg:mx-0">
                     <p className="mb-6 text-gray-400 leading-loose">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Pellentesque efficitur nisl sodales egestas lobortis.
+                      {data.description}
                     </p>
                     <div>
                       <Link
@@ -40,24 +49,24 @@ const Hero = () => {
                 <div className="flex flex-wrap lg:mb-4 lg:ml-6">
                   <img
                     className="w-full md:w-1/2 lg:w-1/3 h-64 p-2 object-cover rounded-4xl lg:rounded-br-none"
-                    src="images/Screenshot-2.png"
+                    src={data.image1}
                     alt=""
                   />
                   <img
                     className="w-full md:w-1/2 lg:w-2/3 h-64 p-2 object-cover rounded-4xl lg:rounded-bl-none"
-                    src="images/hub-01-18-projectmanagement-Hero-1200x900-software-tips.jpg"
+                    src={data.image2}
                     alt=""
                   />
                 </div>
                 <div className="flex flex-wrap lg:mb-4 lg:mr-6">
                   <img
                     className="w-full md:w-1/2 lg:w-2/3 h-64 p-2 object-cover rounded-4xl lg:rounded-br-none"
-                    src="images/istockphoto-1017296544-170667a.jpg"
+                    src={data.image3}
                     alt=""
                   />
                   <img
                     className="w-full md:w-1/2 lg:w-1/3 h-64 p-2 object-cover rounded-4xl lg:rounded-bl-none"
-                    src="images/Screenshot-3.png"
+                    src={data.image4}
                     alt=""
                   />
                 </div>
