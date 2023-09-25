@@ -1,4 +1,15 @@
-const FeaturedProject = () => {
+async function getData() {
+  const BASE = process.env.BASE_URL;
+
+  const res = await fetch(`${BASE}/api/FeaturedProject`);
+  if (!res.ok) {
+    throw new Error("FeaturedProject Calling Fail");
+  }
+  return res.json();
+}
+
+const FeaturedProject = async () => {
+  const data = await getData();
   return (
     <section>
       <div className="skew skew-top mr-for-radius">
@@ -38,73 +49,19 @@ const FeaturedProject = () => {
             </a>
           </div>
           <div className="flex flex-wrap -mx-4 mb-4">
-            <div className="w-full md:w-1/2 lg:w-1/3 mb-8 px-4">
-              <a href="#">
-                <img
-                  className="h-80 w-full mx-auto object-cover rounded"
-                  src="https://static.shuffle.dev/uploads/files/36/368971920a7783ddacbdc0de43a17896c8faed5f/hub-01-18-projectmanagement-Hero-1200x900-software-tips.jpg"
-                  alt=""
-                />
-              </a>
-            </div>
-            <div className="relative mb-4 w-full md:w-1/2 lg:w-1/3 px-4">
-              <div className="relative h-80 mb-5 mx-auto rounded-lg">
-                <img
-                  className="h-80 w-full relative h-full rounded-lg object-cover"
-                  src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1055&q=80"
-                  alt=""
-                />
-                <div className="absolute inset-0 bg-gray-900 opacity-75 rounded-lg" />
-                <div className="absolute inset-0 p-6 flex flex-col items-start">
-                  <span className="text-gray-400">2021</span>
-                  <p className="mb-auto text-xl lg:text-2xl text-white font-bold">
-                    Lorem ipsum dolor sit amet consectutar
-                  </p>
-                  <a
-                    className="inline-block py-2 px-4 border-2 border-gray-400 hover:border-white bg-transparent text-gray-50 hover:bg-white hover:text-gray-900 transition duration-200 rounded-l-xl rounded-t-xl font-bold leading-loose"
-                    href="#"
-                  >
-                    View Project
+            {data.map((item, i) => {
+              return (
+                <div key={i} className="w-full md:w-1/2 lg:w-1/3 mb-8 px-4">
+                  <a target="_blank" href={item["live"]}>
+                    <img
+                      className="h-80 w-full mx-auto object-cover rounded"
+                      src={item["image"]}
+                      alt=""
+                    />
                   </a>
                 </div>
-              </div>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 mb-8 px-4">
-              <a href="#">
-                <img
-                  className="h-80 w-full mx-auto object-cover rounded"
-                  src="https://static.shuffle.dev/uploads/files/36/368971920a7783ddacbdc0de43a17896c8faed5f/960x0.jpg"
-                  alt=""
-                />
-              </a>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 mb-8 px-4">
-              <a href="#">
-                <img
-                  className="h-80 w-full mx-auto object-cover rounded"
-                  src="https://static.shuffle.dev/uploads/files/36/368971920a7783ddacbdc0de43a17896c8faed5f/601441dd6dfbe10018e00c25.webp"
-                  alt=""
-                />
-              </a>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 mb-8 px-4">
-              <a href="#">
-                <img
-                  className="h-80 w-full mx-auto object-cover rounded"
-                  src="https://static.shuffle.dev/uploads/files/36/368971920a7783ddacbdc0de43a17896c8faed5f/istockphoto-1017296544-170667a.jpg"
-                  alt=""
-                />
-              </a>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 mb-8 px-4">
-              <a href="#">
-                <img
-                  className="h-80 w-full mx-auto object-cover rounded"
-                  src="https://static.shuffle.dev/uploads/files/36/368971920a7783ddacbdc0de43a17896c8faed5f/shutterstock-1702515205.jpg"
-                  alt=""
-                />
-              </a>
-            </div>
+              );
+            })}
           </div>
           <div className="text-center">
             <a
